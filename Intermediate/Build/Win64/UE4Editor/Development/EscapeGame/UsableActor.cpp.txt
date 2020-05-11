@@ -1,0 +1,5 @@
+D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\Definitions.EscapeGame.h
+D:\Game projects\EscapeGame\EscapeGame\Source\EscapeGame\UsableActor.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\Engine\Classes\Engine/StaticMeshActor.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\StaticMeshActor.generated.h
+D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Inc\EscapeGame\UsableActor.generated.h

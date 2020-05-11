@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Game projects\\EscapeGame\\EscapeGame\\Source\\EscapeGame\\EscapeGame.Build.cs",
+		"D:\\Game projects\\EscapeGame\\EscapeGame\\Source\\EscapeGame.Target.cs",
+		"D:\\Game projects\\EscapeGame\\EscapeGame\\Source\\EscapeGameEditor.Target.cs"
+	],
+	"EngineVersion": "4.24.2"
+}

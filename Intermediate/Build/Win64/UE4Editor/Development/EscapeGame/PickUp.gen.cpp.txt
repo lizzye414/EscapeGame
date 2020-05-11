@@ -1,0 +1,9 @@
+D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\Definitions.EscapeGame.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+D:\Game projects\EscapeGame\EscapeGame\Source\EscapeGame/PickUp.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\Engine\Classes\Components/BoxComponent.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\Engine\Classes\Components/ShapeComponent.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ShapeComponent.generated.h
+D:\Program Files\Epic Games\UE_4.24\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\BoxComponent.generated.h
+D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Inc\EscapeGame\PickUp.generated.h

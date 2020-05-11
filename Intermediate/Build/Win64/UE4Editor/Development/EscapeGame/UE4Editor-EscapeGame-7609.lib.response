@@ -1,0 +1,32 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-EscapeGame-7609.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\EscapeGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGame.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameCharacter.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameGameMode.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameHUD.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameProjectile.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\InventorySlotWidget.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\InventoryWidget.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\MyPlayerController.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\PickUp.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\Pickup2.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGame.init.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameCharacter.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameGameMode.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameHUD.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\EscapeGameProjectile.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\InventorySlotWidget.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\InventoryWidget.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\MyPlayerController.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\PickUp.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\Pickup2.gen.cpp.obj"
+"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\Default.rc2.res"
+/OUT:"D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-7609.lib"
+/INCLUDE:IMPLEMENT_MODULE_EscapeGame

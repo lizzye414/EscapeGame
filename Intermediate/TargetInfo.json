@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "EscapeGame",
+			"Path": "D:\\Game projects\\EscapeGame\\EscapeGame\\Source\\EscapeGame.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "EscapeGameEditor",
+			"Path": "D:\\Game projects\\EscapeGame\\EscapeGame\\Source\\EscapeGameEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
