@@ -7,7 +7,6 @@
 #include "Pickup2.h"
 #include "EscapeGameCharacter.generated.h"
 
-#define MAX_INVENTORY_ITEMS 4
 
 class UInputComponent;
 
@@ -157,6 +156,14 @@ public:
 
 	TArray<APickup2*> GetInventory();
 
+
+	FORCEINLINE int GetNumCones() { return NumCones; }
+
+	FORCEINLINE int GetNumCubes() { return NumCubes; }
+
+	FORCEINLINE int GetNumCylinders() { return NumCylinders; }
+
+
 protected:
 	/*The range of the raycast*/
 	UPROPERTY(EditAnywhere)
@@ -176,5 +183,14 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<APickup2> PickupBPRef;
+
+	UPROPERTY(EditAnywhere)
+		int NumCones;
+
+	UPROPERTY(EditAnywhere)
+		int NumCubes;
+
+	UPROPERTY(EditAnywhere)
+		int NumCylinders;
 
 };

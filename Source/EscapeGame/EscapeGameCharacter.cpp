@@ -110,7 +110,7 @@ void AEscapeGameCharacter::BeginPlay()
 	LastItemSeen = nullptr;
 
 	//Initializing our Inventory
-	Inventory.SetNum(MAX_INVENTORY_ITEMS);
+	//Inventory.SetNum(MAX_INVENTORY_ITEMS);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -366,19 +366,22 @@ void AEscapeGameCharacter::PickupItem()
 {
 	if (LastItemSeen)
 	{
-		//Find the first available slot
-		int32 AvailableSlot = Inventory.Find(nullptr);
 
-		if (AvailableSlot != INDEX_NONE)
+		FString ItemName = LastItemSeen->GetItemName();
+
+		if (ItemName.Compare("Cone"))
 		{
-			//Add the item to the first valid slot we found
-			GLog->Log("You picked up " + LastItemSeen->GetItemName() + " and put it in slot " + FString::FromInt(AvailableSlot));
-			Inventory[AvailableSlot] = LastItemSeen;
-			
-			//Destroy the item from the game
-			LastItemSeen->Destroy();
+			NumCones++;
 		}
-		else GLog->Log("You can't carry any more items!");
+		else if (ItemName.Compare("Cube"))
+		{
+			NumCubes++;
+		}
+		else
+		{
+			NumCylinders++;
+		}
+
 	}
 }
 

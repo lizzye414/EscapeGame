@@ -1,14 +1,15 @@
-﻿  Parsing headers for EscapeGameEditor
+﻿  Using 'git status' to determine working set for adaptive non-unity build (D:\Game projects\EscapeGame\EscapeGame).
+  Parsing headers for EscapeGameEditor
     Running UnrealHeaderTool "D:\Game projects\EscapeGame\EscapeGame\EscapeGame.uproject" "D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\EscapeGameEditor\Development\EscapeGameEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for EscapeGameEditor in 5.2554396 seconds
+  Reflection code generated for EscapeGameEditor in 5.3871334 seconds
   Building EscapeGameEditor...
   Using Visual Studio 2019 14.24.28316 toolchain (D:\Visual Studio\VC\Tools\MSVC\14.24.28314) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
   Building 4 actions with 6 processes...
     [1/4] EscapeGameCharacter.cpp
-    [2/4] UE4Editor-EscapeGame-0040.lib
-       Creating library D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0040.lib and object D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0040.exp
-    [3/4] UE4Editor-EscapeGame-0040.dll
-       Creating library D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0040.suppressed.lib and object D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0040.suppressed.exp
+    [2/4] UE4Editor-EscapeGame-0051.lib
+       Creating library D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0051.lib and object D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0051.exp
+    [3/4] UE4Editor-EscapeGame-0051.dll
+       Creating library D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0051.suppressed.lib and object D:\Game projects\EscapeGame\EscapeGame\Intermediate\Build\Win64\UE4Editor\Development\EscapeGame\UE4Editor-EscapeGame-0051.suppressed.exp
     [4/4] EscapeGameEditor.target
-  Total time in Parallel executor: 3.96 seconds
-  Total execution time: 9.86 seconds
+  Total time in Parallel executor: 4.22 seconds
+  Total execution time: 10.22 seconds
