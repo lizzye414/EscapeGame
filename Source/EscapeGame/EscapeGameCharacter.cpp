@@ -148,7 +148,11 @@ void AEscapeGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	//Action mapping of pickup item
 	InputComponent->BindAction("Pickup", IE_Pressed, this, &AEscapeGameCharacter::PickupItem);
 
+	// Action mapping of opening and closing inventory
 	InputComponent->BindAction("Inventory", IE_Pressed, this, &AEscapeGameCharacter::HandleInventoryInput);
+
+	// Action mapping of opening and closing the doors
+	InputComponent->BindAction("OpenDoor", IE_Pressed, this, &AEscapeGameCharacter::MoveDoor);
 
 }
 
@@ -393,6 +397,11 @@ void AEscapeGameCharacter::HandleInventoryInput()
 	if (Con) {
 		Con->HandleInventoryInput();
 	}
+}
+
+void AEscapeGameCharacter::MoveDoor()
+{
+
 }
 
 

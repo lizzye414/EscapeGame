@@ -193,4 +193,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 		int32 NumCylinders = 0;
 
+	// handle movement of doors
+	UFUNCTION()
+		void MoveDoor();
+
 };
