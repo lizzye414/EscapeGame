@@ -39,6 +39,12 @@ void AMyPlayerController::HandleInventoryInput()
 			// repopulate ItemsArray
 			InventoryWidgetRef->ItemsArray = Char->GetInventory();
 
+			InventoryWidgetRef->NumCones = Char->GetNumCones();
+
+			InventoryWidgetRef->NumCubes = Char->GetNumCubes();
+
+			InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
+
 			// show inventory
 			InventoryWidgetRef->Show();
 		}

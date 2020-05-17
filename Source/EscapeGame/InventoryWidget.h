@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Pickup2.h"
+#include "EscapeGameCharacter.h"
 #include "InventoryWidget.generated.h"
 
 /**
@@ -28,5 +29,14 @@ public:
 	// stores reference to bind information on inventory slots
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		TArray<APickup2*> ItemsArray;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		int32 NumCones;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		int32 NumCubes;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		int32 NumCylinders;
 	
 };

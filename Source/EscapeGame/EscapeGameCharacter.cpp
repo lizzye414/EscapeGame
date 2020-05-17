@@ -369,11 +369,11 @@ void AEscapeGameCharacter::PickupItem()
 
 		FString ItemName = LastItemSeen->GetItemName();
 
-		if (ItemName.Compare("Cone"))
+		if (!ItemName.Compare("Cone"))
 		{
 			NumCones++;
 		}
-		else if (ItemName.Compare("Cube"))
+		else if (!ItemName.Compare("Cube"))
 		{
 			NumCubes++;
 		}
@@ -381,6 +381,8 @@ void AEscapeGameCharacter::PickupItem()
 		{
 			NumCylinders++;
 		}
+
+		LastItemSeen->Destroy();
 
 	}
 }

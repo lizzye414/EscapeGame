@@ -157,11 +157,11 @@ public:
 	TArray<APickup2*> GetInventory();
 
 
-	FORCEINLINE int GetNumCones() { return NumCones; }
+	FORCEINLINE int32 GetNumCones() { return NumCones; }
 
-	FORCEINLINE int GetNumCubes() { return NumCubes; }
+	FORCEINLINE int32 GetNumCubes() { return NumCubes; }
 
-	FORCEINLINE int GetNumCylinders() { return NumCylinders; }
+	FORCEINLINE int32 GetNumCylinders() { return NumCylinders; }
 
 
 protected:
@@ -185,12 +185,12 @@ protected:
 		TSubclassOf<APickup2> PickupBPRef;
 
 	UPROPERTY(EditAnywhere)
-		int NumCones;
+		int32 NumCones = 0;
 
 	UPROPERTY(EditAnywhere)
-		int NumCubes;
+		int32 NumCubes = 0;
 
 	UPROPERTY(EditAnywhere)
-		int NumCylinders;
+		int32 NumCylinders = 0;
 
 };
