@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/StaticMeshActor.h"
+#include "Components/StaticMeshComponent.h"
 #include <Runtime\Engine\Classes\Components\BoxComponent.h>
 #include "Door.generated.h"
 
@@ -30,13 +31,26 @@ public:
 	UFUNCTION()
 		void OpenDoor(float dt);
 
+	UFUNCTION()
+		void CloseDoor(float dt);
+
+	UFUNCTION()
+		void MoveDoor(FVector ForwardVector);
+
+	UStaticMeshComponent* Door;
+
 	UPROPERTY(VisibleAnywhere, Category = "BoxComp")
 		UBoxComponent* BoxComp;
 
-	
+	bool Opening;
+	bool Closing;
 	bool isClosed;
-	float addRotation;
-	float currentRotation;
+
+	float DotP;
+	float PosNeg;
+	float AddRotation;
+	float CurrentRotation;
+	float MaxDegree;
 
 
 

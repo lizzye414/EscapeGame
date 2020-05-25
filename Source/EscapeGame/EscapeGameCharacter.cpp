@@ -1,6 +1,7 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "EscapeGameCharacter.h"
+#include "Math/Vector.h"
 #include "EscapeGameProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -84,6 +85,18 @@ AEscapeGameCharacter::AEscapeGameCharacter()
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
 
+	// Set up the Trigger capsule
+	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
+	TriggerCapsule->InitCapsuleSize(55.f, 96.0f);;
+	TriggerCapsule->SetCollisionProfileName(TEXT("Trigger"));
+	TriggerCapsule->SetupAttachment(RootComponent);
+
+	// bind trigger events
+	TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &AEscapeGameCharacter::OnOverlapBegin);
+	TriggerCapsule->OnComponentEndOverlap.AddDynamic(this, &AEscapeGameCharacter::OnOverlapEnd);
+
+	CurrentDoor = NULL;
+
 }
 
 void AEscapeGameCharacter::BeginPlay()
@@ -152,7 +165,7 @@ void AEscapeGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	InputComponent->BindAction("Inventory", IE_Pressed, this, &AEscapeGameCharacter::HandleInventoryInput);
 
 	// Action mapping of opening and closing the doors
-	InputComponent->BindAction("OpenDoor", IE_Pressed, this, &AEscapeGameCharacter::MoveDoor);
+	InputComponent->BindAction("OpenDoor", IE_Pressed, this, &AEscapeGameCharacter::OnAction);
 
 }
 
@@ -366,6 +379,26 @@ TArray<APickup2*> AEscapeGameCharacter::GetInventory()
 	return Inventory;
 }
 
+void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADoor::StaticClass()))
+	{
+		CurrentDoor = Cast<ADoor>(OtherActor);
+	}
+
+}
+
+void AEscapeGameCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		CurrentDoor = NULL;
+	}
+
+}
+
 void AEscapeGameCharacter::PickupItem()
 {
 	if (LastItemSeen)
@@ -401,6 +434,18 @@ void AEscapeGameCharacter::HandleInventoryInput()
 
 void AEscapeGameCharacter::MoveDoor()
 {
+
+}
+
+void AEscapeGameCharacter::OnAction()
+{
+
+	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
+
+	if (CurrentDoor)
+	{
+		CurrentDoor->MoveDoor(ForwardVector);
+	}
 
 }
 

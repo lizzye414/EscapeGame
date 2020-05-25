@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Pickup2.h"
+#include "Door.h"
+#include "Door2.h"
 #include "EscapeGameCharacter.generated.h"
 
 
@@ -150,6 +152,9 @@ private:
 	/*Reference to the last seen pickup item. Nullptr if none*/
 	APickup2* LastItemSeen;
 
+	UPROPERTY(VisibleAnywhere, Category = "Trigger Capsule")
+		class UCapsuleComponent* TriggerCapsule;
+
 public:
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -162,6 +167,16 @@ public:
 	FORCEINLINE int32 GetNumCubes() { return NumCubes; }
 
 	FORCEINLINE int32 GetNumCylinders() { return NumCylinders; }
+
+	// declare overlap begin function for door
+	UFUNCTION()
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	// declare overlap end function for door
+	UFUNCTION()
+		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	class ADoor* CurrentDoor;
 
 
 protected:
@@ -196,5 +211,7 @@ protected:
 	// handle movement of doors
 	UFUNCTION()
 		void MoveDoor();
+
+	void OnAction();
 
 };
