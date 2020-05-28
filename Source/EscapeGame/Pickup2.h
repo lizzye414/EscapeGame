@@ -29,10 +29,6 @@ public:
 	/*Enables/Disables the glow effect on the pickup*/
 	void SetGlowEffect(bool Status);
 
-	/*Returns the Texture of our Pickup*/
-	UFUNCTION()
-	FORCEINLINE UTexture2D* GetPickupTexture() { return PickupTexture; }
-
 	UFUNCTION()
 		FString GetItemName() { return ItemName; }
 
@@ -40,10 +36,6 @@ protected:
 	/*The Static Mesh of the pickup*/
 	UPROPERTY(VisibleAnywhere)
 		UStaticMeshComponent* PickupSM;
-
-	/*The Texture of the item */
-	UPROPERTY(EditAnywhere, Category = "PickupProperties")
-		UTexture2D* PickupTexture;
 
 	/*The name of the item*/
 	UPROPERTY(EditAnywhere, Category = "PickupProperties")

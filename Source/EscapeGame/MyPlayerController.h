@@ -32,5 +32,7 @@ public:
 
 	//Opens or closes the inventory
 	void HandleInventoryInput();
+
+	virtual void Tick(float DeltaSeconds) override;
 	
 };

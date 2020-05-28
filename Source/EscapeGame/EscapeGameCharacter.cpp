@@ -432,10 +432,6 @@ void AEscapeGameCharacter::HandleInventoryInput()
 	}
 }
 
-void AEscapeGameCharacter::MoveDoor()
-{
-
-}
 
 void AEscapeGameCharacter::OnAction()
 {
@@ -444,7 +440,41 @@ void AEscapeGameCharacter::OnAction()
 
 	if (CurrentDoor)
 	{
-		CurrentDoor->MoveDoor(ForwardVector);
+
+		FString TypeNeeded = CurrentDoor->Type;
+
+		if (!CurrentDoor->isClosed || CurrentDoor->isUnlocked) 
+		{
+			CurrentDoor->MoveDoor(ForwardVector);
+		}
+		else if (!TypeNeeded.Compare("Cone") && CurrentDoor->isClosed)
+		{
+			if (NumCones > 0)
+			{
+				CurrentDoor->MoveDoor(ForwardVector);
+				CurrentDoor->isUnlocked = true;
+				NumCones--;
+			}
+		}
+		else if (!TypeNeeded.Compare("Cube") && CurrentDoor->isClosed)
+		{
+			if (NumCubes > 0)
+			{
+				CurrentDoor->MoveDoor(ForwardVector);
+				CurrentDoor->isUnlocked = true;
+				NumCubes--;
+			}
+		}
+		else if (!TypeNeeded.Compare("Cylinders") && CurrentDoor->isClosed)
+		{
+			if (NumCylinders > 0)
+			{
+				CurrentDoor->MoveDoor(ForwardVector);
+				CurrentDoor->isUnlocked = true;
+				NumCylinders--;
+			}
+		}
+		
 	}
 
 }

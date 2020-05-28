@@ -29,6 +29,7 @@ ADoor::ADoor()
 		Door->SetWorldScale3D(FVector(1.f));
 	}
 
+	isUnlocked = false;
 	Opening = false;
 	Closing = false; 
 	isClosed = true;
@@ -44,8 +45,6 @@ void ADoor::BeginPlay()
 {
 
 	Super::BeginPlay();
-
-	//DrawDebugBox(GetWorld(), GetActorLocation(), BoxComp->GetScaledBoxExtent(), FQuat(GetActorRotation()), FColor::Turquoise, true, -1, 0, 2);
 
 }
 

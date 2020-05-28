@@ -4,6 +4,17 @@
 #include "MyPlayerController.h"
 #include "EscapeGameCharacter.h"
 
+void AMyPlayerController::Tick(float DeltaSeconds)
+{
+	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
+
+	InventoryWidgetRef->NumCones = Char->GetNumCones();
+
+	InventoryWidgetRef->NumCubes = Char->GetNumCubes();
+
+	InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
+}
+
 void AMyPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
@@ -36,9 +47,8 @@ void AMyPlayerController::HandleInventoryInput()
 			// mark inventory as open
 			bIsInventoryOpen = true;
 
-			// repopulate ItemsArray
-			InventoryWidgetRef->ItemsArray = Char->GetInventory();
 
+			// Get the numbers of each type of pickup
 			InventoryWidgetRef->NumCones = Char->GetNumCones();
 
 			InventoryWidgetRef->NumCubes = Char->GetNumCubes();

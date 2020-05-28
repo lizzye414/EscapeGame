@@ -27,8 +27,6 @@ public:
 		void Hide();
 
 	// stores reference to bind information on inventory slots
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		TArray<APickup2*> ItemsArray;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		int32 NumCones;

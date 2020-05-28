@@ -10,8 +10,6 @@ APickup2::APickup2()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PickupSM = CreateDefaultSubobject<UStaticMeshComponent>(FName("PickupSM"));
-
-	PickupTexture = CreateDefaultSubobject<UTexture2D>(FName("ItemTexture"));
 	
 }
 

@@ -42,6 +42,11 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "BoxComp")
 		UBoxComponent* BoxComp;
 
+	UPROPERTY(EditAnywhere, Category = "Type")
+		FString Type;
+
+
+	bool isUnlocked;
 	bool Opening;
 	bool Closing;
 	bool isClosed;
