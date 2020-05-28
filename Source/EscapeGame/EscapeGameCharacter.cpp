@@ -374,11 +374,6 @@ void AEscapeGameCharacter::Tick(float DeltaSeconds)
 	Raycast();
 }
 
-TArray<APickup2*> AEscapeGameCharacter::GetInventory()
-{
-	return Inventory;
-}
-
 void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
@@ -465,7 +460,7 @@ void AEscapeGameCharacter::OnAction()
 				NumCubes--;
 			}
 		}
-		else if (!TypeNeeded.Compare("Cylinders") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Cylinder") && CurrentDoor->isClosed)
 		{
 			if (NumCylinders > 0)
 			{

@@ -8,6 +8,7 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 {
 	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
 
+	// Update the inventory even if it is left open
 	InventoryWidgetRef->NumCones = Char->GetNumCones();
 
 	InventoryWidgetRef->NumCubes = Char->GetNumCubes();
@@ -46,14 +47,6 @@ void AMyPlayerController::HandleInventoryInput()
 		{
 			// mark inventory as open
 			bIsInventoryOpen = true;
-
-
-			// Get the numbers of each type of pickup
-			InventoryWidgetRef->NumCones = Char->GetNumCones();
-
-			InventoryWidgetRef->NumCubes = Char->GetNumCubes();
-
-			InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
 
 			// show inventory
 			InventoryWidgetRef->Show();

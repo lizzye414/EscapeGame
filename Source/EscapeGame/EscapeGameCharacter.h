@@ -159,9 +159,6 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	TArray<APickup2*> GetInventory();
-
-
 	FORCEINLINE int32 GetNumCones() { return NumCones; }
 
 	FORCEINLINE int32 GetNumCubes() { return NumCubes; }
@@ -187,10 +184,6 @@ protected:
 	/*Handles the Pickup Input*/
 	UFUNCTION()
 		void PickupItem();
-
-	/*The actual Inventory*/
-	UPROPERTY(VisibleAnywhere)
-		TArray<APickup2*> Inventory;
 
 	// handle the inventory by sending information to controller
 	UFUNCTION()
