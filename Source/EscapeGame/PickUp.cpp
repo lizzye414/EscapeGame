@@ -44,10 +44,10 @@ void APickUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	// Check if other actor is null pointer and not itself
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr)) 
 	{
-		FString pickup = FString::Printf(TEXT("Picked up %s"), *GetName());
-		GEngine->AddOnScreenDebugMessage(1, 5, FColor::White, pickup);
+		//FString pickup = FString::Printf(TEXT("Picked up %s"), *GetName());
+		//GEngine->AddOnScreenDebugMessage(1, 5, FColor::White, pickup);
 
-		Destroy();
+		//Destroy();
 	}
 }
 

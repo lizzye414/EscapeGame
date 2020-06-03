@@ -404,6 +404,23 @@ void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 
 	}
 
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(APickUp::StaticClass()))
+	{
+
+		CurrentPickUp = Cast<APickUp>(OtherActor);
+
+		if (CurrentHealth < 100.0f)
+		{
+			CurrentHealth += 20.0f;
+			CurrentPickUp->Destroy();
+
+			if (CurrentHealth > 100.0f)
+			{
+				CurrentHealth = 100.0f;
+			}
+		}
+	}
+
 }
 
 void AEscapeGameCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

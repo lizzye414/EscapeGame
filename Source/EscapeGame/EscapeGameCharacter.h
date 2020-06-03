@@ -7,6 +7,7 @@
 #include "Pickup2.h"
 #include "Door.h"
 #include "Damage.h"
+#include "PickUp.h"
 #include "EscapeGameCharacter.generated.h"
 
 
@@ -176,6 +177,8 @@ public:
 	class ADoor* CurrentDoor;
 
 	class ADamage* CurrentDamage;
+
+	class APickUp* CurrentPickUp;
 
 	UPROPERTY(BlueprintReadOnly)
 		float MaxHealth;
