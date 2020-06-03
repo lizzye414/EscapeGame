@@ -4,6 +4,16 @@
 #include "MyPlayerController.h"
 #include "EscapeGameCharacter.h"
 
+void AMyPlayerController::BeginPlay()
+{
+	if (HealthWidgetClass != nullptr)
+	{
+		HealthWidget = CreateWidget<UUserWidget>(GetWorld(), HealthWidgetClass);
+		HealthWidget->AddToViewport();
+	}
+}
+
+
 void AMyPlayerController::Tick(float DeltaSeconds)
 {
 	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());

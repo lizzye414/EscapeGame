@@ -46,6 +46,6 @@ public:
 		float MaxHeight;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
-		bool startUp;
+		bool startDown;
 
 };

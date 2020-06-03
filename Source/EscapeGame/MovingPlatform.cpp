@@ -80,7 +80,9 @@ void AMovingPlatform::MoveDown(float dt)
 
 	AddHeight = -dt * Speed;
 
-	if (!startUp)
+	// Platform stops at different height depending on whether it started at floor or not so that it doesn't 
+	// fall through the floor
+	if (!startDown)
 	{
 		if (FMath::IsNearlyEqual(CurrentLocation.Z, -MaxHeight + 100.0f, 1.5f))
 		{

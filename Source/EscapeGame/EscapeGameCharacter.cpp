@@ -97,6 +97,9 @@ AEscapeGameCharacter::AEscapeGameCharacter()
 
 	CurrentDoor = NULL;
 
+	MaxHealth = 100.0f;
+	CurrentHealth = 100.0f;
+	isAlive = true;
 }
 
 void AEscapeGameCharacter::BeginPlay()
@@ -382,6 +385,25 @@ void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 		CurrentDoor = Cast<ADoor>(OtherActor);
 	}
 
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADamage::StaticClass()))
+	{
+		CurrentDamage = Cast<ADamage>(OtherActor);
+
+		if (CurrentHealth > 0.0f && CurrentDamage)
+		{
+			
+			CurrentHealth -= CurrentDamage->DamageAmount;
+				
+
+			if (CurrentHealth <= 0.0f)
+			{
+				CurrentHealth = 0.0f;
+				isAlive = false;
+			}
+		}
+
+	}
+
 }
 
 void AEscapeGameCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -393,6 +415,7 @@ void AEscapeGameCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AAc
 	}
 
 }
+
 
 void AEscapeGameCharacter::PickupItem()
 {
@@ -433,6 +456,7 @@ void AEscapeGameCharacter::OnAction()
 
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
 
+	// door opens only if the player holds the correct shape or is already unlocked
 	if (CurrentDoor)
 	{
 

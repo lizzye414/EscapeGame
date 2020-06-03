@@ -13,5 +13,22 @@ AEscapeGameGameMode::AEscapeGameGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	// use our custom HUD class
-	HUDClass = AEscapeGameHUD::StaticClass();
+	//HUDClass = AEscapeGameHUD::StaticClass();
+}
+
+void AEscapeGameGameMode::BeginPlay()
+{
+
+	Super::BeginPlay();
+
+	bPlayerDead = false;
+
+	if (HealthBarClass != nullptr)
+	{
+
+		HealthBar = CreateWidget<UUserWidget>(GetWorld(), HealthBarClass);
+		HealthBar->AddToViewport();
+
+	}
+
 }

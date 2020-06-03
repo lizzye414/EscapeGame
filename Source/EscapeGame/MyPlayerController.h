@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "InventoryWidget.h"
+#include "Blueprint/UserWidget.h"
 #include "MyPlayerController.generated.h"
 
 /**
@@ -16,6 +17,9 @@ class ESCAPEGAME_API AMyPlayerController : public APlayerController
 	GENERATED_BODY()
 
 private:
+
+	virtual void BeginPlay() override;
+
 	// InventoryWidget reference
 	UInventoryWidget* InventoryWidgetRef;
 
@@ -26,6 +30,11 @@ protected:
 	// InventoryWidget Blueprint reference
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<UInventoryWidget> InventoryWidgetBP;
+
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> HealthWidgetClass;
+
+	UUserWidget* HealthWidget;
 
 public:
 	virtual void OnPossess(APawn* InPawn) override;

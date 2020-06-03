@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Pickup2.h"
 #include "Door.h"
-#include "Door2.h"
+#include "Damage.h"
 #include "EscapeGameCharacter.generated.h"
 
 
@@ -174,6 +174,17 @@ public:
 		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	class ADoor* CurrentDoor;
+
+	class ADamage* CurrentDamage;
+
+	UPROPERTY(BlueprintReadOnly)
+		float MaxHealth;
+
+	UPROPERTY(BlueprintReadOnly)
+		float CurrentHealth;
+
+	bool isAlive;
+
 
 
 protected:

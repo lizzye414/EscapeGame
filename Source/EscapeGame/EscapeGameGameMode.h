@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Blueprint/UserWidget.h"
+
 #include "EscapeGameGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -13,6 +15,19 @@ class AEscapeGameGameMode : public AGameModeBase
 
 public:
 	AEscapeGameGameMode();
+
+	virtual void BeginPlay() override;
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> HealthBarClass;
+
+	UUserWidget* HealthBar;
+
+	bool bPlayerDead;
+
+
 };
 
 
