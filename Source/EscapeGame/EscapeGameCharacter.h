@@ -8,6 +8,7 @@
 #include "Door.h"
 #include "Damage.h"
 #include "PickUp.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "EscapeGameCharacter.generated.h"
 
 
@@ -148,7 +149,7 @@ public:
 
 private:
 	/*Raycasts in front of the character to find usable items*/
-	void Raycast();
+	FHitResult Raycast();
 
 	/*Reference to the last seen pickup item. Nullptr if none*/
 	APickup2* LastItemSeen;
@@ -216,5 +217,12 @@ protected:
 		int32 NumCylinders = 0;
 
 	void OnAction();
+
+	void Grab();
+	void Release();
+
+	void FindPhysicsHandleComponent();
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 
 };

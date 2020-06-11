@@ -125,8 +125,7 @@ void AEscapeGameCharacter::BeginPlay()
 	//Initializing our reference to pickup2
 	LastItemSeen = nullptr;
 
-	//Initializing our Inventory
-	//Inventory.SetNum(MAX_INVENTORY_ITEMS);
+	FindPhysicsHandleComponent();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -169,6 +168,10 @@ void AEscapeGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 	// Action mapping of opening and closing the doors
 	InputComponent->BindAction("OpenDoor", IE_Pressed, this, &AEscapeGameCharacter::OnAction);
+
+	// Action mapping of grabbing and releasing an object
+	InputComponent->BindAction("Grab", IE_Pressed, this, &AEscapeGameCharacter::Grab);
+	InputComponent->BindAction("Grab", IE_Released, this, &AEscapeGameCharacter::Release);
 
 }
 
@@ -333,23 +336,20 @@ bool AEscapeGameCharacter::EnableTouchscreenMovement(class UInputComponent* Play
 	return false;
 }
 
-// Added to pick up items
-
-void AEscapeGameCharacter::Raycast()
+/// Raycast to collect and pick up items
+FHitResult AEscapeGameCharacter::Raycast()
 {
-	//Calculating start and end location
-	FVector StartLocation = FirstPersonCameraComponent->GetComponentLocation();
-	FVector EndLocation = StartLocation + (FirstPersonCameraComponent->GetForwardVector() * RaycastRange);
 
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * RaycastRange;
+
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 	FHitResult RaycastHit;
 
-	//Raycast should ignore the character
-	FCollisionQueryParams CQP;
-	CQP.AddIgnoredActor(this);
-
-	//Raycast
-	GetWorld()->LineTraceSingleByChannel(RaycastHit, StartLocation, EndLocation, ECollisionChannel::ECC_WorldDynamic, CQP);
-
+	GetWorld()->LineTraceSingleByObjectType(RaycastHit, PlayerViewPointLocation, LineTraceEnd, ECollisionChannel::ECC_PhysicsBody, TraceParameters);
 
 	APickup2* Pickup = Cast<APickup2>(RaycastHit.GetActor());
 
@@ -367,6 +367,8 @@ void AEscapeGameCharacter::Raycast()
 	}//Re-Initialize 
 	else LastItemSeen = nullptr;
 
+	return RaycastHit;
+
 }
 
 
@@ -375,6 +377,19 @@ void AEscapeGameCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	//Raycast every frame
 	Raycast();
+
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * RaycastRange;
+
+	if (PhysicsHandle->GrabbedComponent)
+	{
+
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+
+	}
 }
 
 void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -444,17 +459,20 @@ void AEscapeGameCharacter::PickupItem()
 		if (!ItemName.Compare("Cone"))
 		{
 			NumCones++;
+			LastItemSeen->Destroy();
 		}
 		else if (!ItemName.Compare("Cube"))
 		{
 			NumCubes++;
+			LastItemSeen->Destroy();
 		}
-		else
+		else if(!ItemName.Compare("Cylinder"))
 		{
 			NumCylinders++;
+			LastItemSeen->Destroy();
 		}
 
-		LastItemSeen->Destroy();
+		
 
 	}
 }
@@ -511,6 +529,44 @@ void AEscapeGameCharacter::OnAction()
 			}
 		}
 		
+	}
+
+}
+
+void AEscapeGameCharacter::Grab()
+{
+	
+	auto HitResult = Raycast();
+
+	auto ComponentToGrab = HitResult.GetComponent();
+	auto ActorHit = HitResult.GetActor();
+
+	if (ActorHit)
+	{
+		PhysicsHandle->GrabComponentAtLocation(ComponentToGrab, NAME_None, ComponentToGrab->GetOwner()->GetActorLocation());
+	}
+
+}
+
+void AEscapeGameCharacter::Release()
+{
+
+	PhysicsHandle->ReleaseComponent();
+
+}
+
+void AEscapeGameCharacter::FindPhysicsHandleComponent()
+{
+
+	PhysicsHandle = this->FindComponentByClass<UPhysicsHandleComponent>();
+
+	if (PhysicsHandle)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s has a physics handle"), *GetOwner()->GetName());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle"), *GetOwner()->GetName());
 	}
 
 }
