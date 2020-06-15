@@ -43,5 +43,7 @@ public:
 	void HandleInventoryInput();
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	AEscapeGameCharacter* Character;
 	
 };

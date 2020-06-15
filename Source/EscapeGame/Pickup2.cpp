@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "MyTriggerVolume.h"
 #include "Pickup2.h"
 
 // Sets default values
@@ -31,6 +31,8 @@ void APickup2::SetGlowEffect(bool Status)
 {
 	PickupSM->SetRenderCustomDepth(Status);
 }
+
+
 
 
 

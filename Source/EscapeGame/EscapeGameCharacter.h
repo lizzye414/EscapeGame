@@ -189,6 +189,10 @@ public:
 
 	bool isAlive;
 
+	bool Trigger1Pressed = false;
+	bool Trigger2Pressed = false;
+	bool Trigger3Pressed = false;
+
 
 
 protected:

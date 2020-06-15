@@ -37,6 +37,8 @@ void AMyPlayerController::OnPossess(APawn* InPawn)
 
 	// initial value
 	bIsInventoryOpen = false;
+
+	Character = Cast<AEscapeGameCharacter>(GetPawn());
 }
 
 void AMyPlayerController::HandleInventoryInput()

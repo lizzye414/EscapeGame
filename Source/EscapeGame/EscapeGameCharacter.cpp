@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "MyPlayerController.h"
+#include "MyTriggerVolume.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -491,7 +492,7 @@ void AEscapeGameCharacter::OnAction()
 
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
 
-	// door opens only if the player holds the correct shape or is already unlocked
+	// door opens only if the player holds the correct shape, solved the puzzle or is already unlocked
 	if (CurrentDoor)
 	{
 
@@ -527,6 +528,16 @@ void AEscapeGameCharacter::OnAction()
 				CurrentDoor->isUnlocked = true;
 				NumCylinders--;
 			}
+		}
+		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed)
+		{
+			
+			if (Trigger1Pressed == true && Trigger2Pressed == true && Trigger3Pressed == true)
+			{
+				CurrentDoor->MoveDoor(ForwardVector);
+				CurrentDoor->isUnlocked = true;
+			}
+
 		}
 		
 	}
