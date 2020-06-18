@@ -539,6 +539,16 @@ void AEscapeGameCharacter::OnAction()
 			}
 
 		}
+		else if (!TypeNeeded.Compare("Puzzle2") && CurrentDoor->isClosed)
+		{
+
+			if (Trigger4Pressed == true)
+			{
+				CurrentDoor->MoveDoor(ForwardVector);
+				CurrentDoor->isUnlocked = true;
+			}
+
+		}
 		
 	}
 

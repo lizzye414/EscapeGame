@@ -40,4 +40,18 @@ void AEscapeGameProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 
 		Destroy();
 	}
+
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADestructibleObject::StaticClass()))
+	{
+
+		CurrentTarget = Cast<ADestructibleObject>(OtherActor);
+
+		CurrentTarget->HitPoints--;
+
+		if (CurrentTarget->HitPoints <= 0)
+		{
+			CurrentTarget->Destroy();
+		}
+
+	}
 }

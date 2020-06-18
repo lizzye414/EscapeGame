@@ -55,6 +55,10 @@ void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActo
         {
             EGCharacter->Trigger3Pressed = true;
         }
+        else if (EGCharacter && !Name.Compare("Trigger4"))
+        {
+            EGCharacter->Trigger4Pressed = true;
+        }
 
     }
 }

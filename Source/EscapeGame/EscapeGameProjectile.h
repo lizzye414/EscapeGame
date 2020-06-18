@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DestructibleObject.h"
 #include "EscapeGameProjectile.generated.h"
 
 UCLASS(config=Game)
@@ -30,5 +31,7 @@ public:
 	FORCEINLINE class USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	ADestructibleObject* CurrentTarget;
 };
 

@@ -192,6 +192,7 @@ public:
 	bool Trigger1Pressed = false;
 	bool Trigger2Pressed = false;
 	bool Trigger3Pressed = false;
+	bool Trigger4Pressed = false;
 
 
 
