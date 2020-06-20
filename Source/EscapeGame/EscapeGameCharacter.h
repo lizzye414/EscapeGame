@@ -196,6 +196,7 @@ public:
 
 
 
+
 protected:
 	/*The range of the raycast*/
 	UPROPERTY(EditAnywhere)
@@ -229,5 +230,10 @@ protected:
 	void FindPhysicsHandleComponent();
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
+	// Display restart option
+	UFUNCTION()
+		void ShowRestart();
+
 
 };

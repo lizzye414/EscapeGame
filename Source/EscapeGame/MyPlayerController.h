@@ -26,6 +26,8 @@ private:
 	// true is inventory is open
 	bool bIsInventoryOpen;
 
+	FTimerHandle TimerHandle;
+
 protected:
 	// InventoryWidget Blueprint reference
 	UPROPERTY(EditDefaultsOnly)
@@ -36,6 +38,16 @@ protected:
 
 	UUserWidget* HealthWidget;
 
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> RestartWidgetClass;
+
+	UUserWidget* RestartWidget;
+
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> UserMessageWidgetClass;
+
+	UUserWidget* UserMessageWidget;
+
 public:
 	virtual void OnPossess(APawn* InPawn) override;
 
@@ -45,5 +57,14 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	AEscapeGameCharacter* Character;
+
+	void ShowRestart();
+
+	UFUNCTION()
+	void DisplayMessage();
+
+	UFUNCTION()
+	void RemoveMessage();
+
 	
 };

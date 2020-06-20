@@ -2,6 +2,7 @@
 
 
 #include "MyPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "EscapeGameCharacter.h"
 
 void AMyPlayerController::BeginPlay()
@@ -11,6 +12,14 @@ void AMyPlayerController::BeginPlay()
 		HealthWidget = CreateWidget<UUserWidget>(GetWorld(), HealthWidgetClass);
 		HealthWidget->AddToViewport();
 	}
+
+	if (UserMessageWidgetClass != nullptr)
+	{
+		UserMessageWidget = CreateWidget<UUserWidget>(GetWorld(), UserMessageWidgetClass);
+	}
+
+	
+
 }
 
 
@@ -24,6 +33,24 @@ void AMyPlayerController::Tick(float DeltaSeconds)
 	InventoryWidgetRef->NumCubes = Char->GetNumCubes();
 
 	InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
+}
+
+/// Pause the game and show the restart menu
+void AMyPlayerController::ShowRestart()
+{
+	
+	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
+
+	if (RestartWidgetClass != nullptr)
+	{
+		RestartWidget = CreateWidget<UUserWidget>(GetWorld(), RestartWidgetClass);
+		RestartWidget->AddToViewport();
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true; 
+		GetWorld()->GetFirstPlayerController()->bEnableClickEvents = true;
+	}
+
+
 }
 
 void AMyPlayerController::OnPossess(APawn* InPawn)
@@ -41,6 +68,7 @@ void AMyPlayerController::OnPossess(APawn* InPawn)
 	Character = Cast<AEscapeGameCharacter>(GetPawn());
 }
 
+/// Displays inventory on screen
 void AMyPlayerController::HandleInventoryInput()
 {
 
@@ -66,6 +94,28 @@ void AMyPlayerController::HandleInventoryInput()
 	}
 
 }
+
+void AMyPlayerController::DisplayMessage()
+{
+
+	UserMessageWidget->AddToViewport();
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMyPlayerController::RemoveMessage, 3.0f, false);
+
+}
+
+void AMyPlayerController::RemoveMessage()
+{
+
+	UserMessageWidget->RemoveFromViewport();
+
+}
+
+
+
+
+
+
+
 
 
 

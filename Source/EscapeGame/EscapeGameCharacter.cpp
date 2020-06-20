@@ -13,6 +13,7 @@
 #include "MotionControllerComponent.h"
 #include "MyPlayerController.h"
 #include "MyTriggerVolume.h"
+#include "Components/TextBlock.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -101,6 +102,7 @@ AEscapeGameCharacter::AEscapeGameCharacter()
 	MaxHealth = 100.0f;
 	CurrentHealth = 100.0f;
 	isAlive = true;
+
 }
 
 void AEscapeGameCharacter::BeginPlay()
@@ -415,6 +417,7 @@ void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			{
 				CurrentHealth = 0.0f;
 				isAlive = false;
+				ShowRestart();
 			}
 		}
 
@@ -491,9 +494,10 @@ void AEscapeGameCharacter::OnAction()
 {
 
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
+	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 
 	// door opens only if the player holds the correct shape, solved the puzzle or is already unlocked
-	if (CurrentDoor)
+	if (CurrentDoor && Con)
 	{
 
 		FString TypeNeeded = CurrentDoor->Type;
@@ -510,6 +514,10 @@ void AEscapeGameCharacter::OnAction()
 				CurrentDoor->isUnlocked = true;
 				NumCones--;
 			}
+			else
+			{
+				Con->DisplayMessage();
+			}
 		}
 		else if (!TypeNeeded.Compare("Cube") && CurrentDoor->isClosed)
 		{
@@ -518,6 +526,10 @@ void AEscapeGameCharacter::OnAction()
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
 				NumCubes--;
+			}
+			else
+			{
+				Con->DisplayMessage();
 			}
 		}
 		else if (!TypeNeeded.Compare("Cylinder") && CurrentDoor->isClosed)
@@ -528,6 +540,10 @@ void AEscapeGameCharacter::OnAction()
 				CurrentDoor->isUnlocked = true;
 				NumCylinders--;
 			}
+			else
+			{
+				Con->DisplayMessage();
+			}
 		}
 		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed)
 		{
@@ -536,6 +552,10 @@ void AEscapeGameCharacter::OnAction()
 			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
+			}
+			else
+			{
+				Con->DisplayMessage();
 			}
 
 		}
@@ -546,6 +566,10 @@ void AEscapeGameCharacter::OnAction()
 			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
+			}
+			else
+			{
+				Con->DisplayMessage();
 			}
 
 		}
@@ -588,6 +612,16 @@ void AEscapeGameCharacter::FindPhysicsHandleComponent()
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle"), *GetOwner()->GetName());
+	}
+
+}
+
+void AEscapeGameCharacter::ShowRestart()
+{
+
+	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+	if (Con) {
+		Con->ShowRestart();
 	}
 
 }
