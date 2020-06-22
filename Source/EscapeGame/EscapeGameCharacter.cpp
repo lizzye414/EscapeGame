@@ -339,7 +339,7 @@ bool AEscapeGameCharacter::EnableTouchscreenMovement(class UInputComponent* Play
 	return false;
 }
 
-/// Raycast to collect and pick up items
+/// Raycast to make interactable items glow and be picked up
 FHitResult AEscapeGameCharacter::Raycast()
 {
 
@@ -393,36 +393,38 @@ void AEscapeGameCharacter::Tick(float DeltaSeconds)
 		PhysicsHandle->SetTargetLocation(LineTraceEnd);
 
 	}
+
+	if (CurrentHealth > 0.0f && CurrentDamage)
+	{
+		CurrentHealth -= CurrentDamage->DamageAmount;
+
+		if (CurrentHealth <= 0.0f)
+		{
+			CurrentHealth = 0.0f;
+			isAlive = false;
+			ShowRestart();
+		}
+	}
+
+
 }
 
 void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	/// Handle seeing a door
 	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADoor::StaticClass()))
 	{
 		CurrentDoor = Cast<ADoor>(OtherActor);
 	}
 
+	/// Handle stepping into a damage area
 	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADamage::StaticClass()))
 	{
 		CurrentDamage = Cast<ADamage>(OtherActor);
 
-		if (CurrentHealth > 0.0f && CurrentDamage)
-		{
-			
-			CurrentHealth -= CurrentDamage->DamageAmount;
-				
-
-			if (CurrentHealth <= 0.0f)
-			{
-				CurrentHealth = 0.0f;
-				isAlive = false;
-				ShowRestart();
-			}
-		}
-
 	}
 
+	/// Handle moving over a health pack
 	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(APickUp::StaticClass()))
 	{
 
@@ -445,35 +447,49 @@ void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 void AEscapeGameCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 
-	if (OtherActor && (OtherActor != this) && OtherComp)
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADoor::StaticClass()))
 	{
-		CurrentDoor = NULL;
+		CurrentDoor = nullptr;
+	}
+
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(ADamage::StaticClass()))
+	{
+		CurrentDamage = nullptr;
+	}
+
+	if (OtherActor && (OtherActor != this) && OtherComp && OtherActor->GetClass()->IsChildOf(APickUp::StaticClass()))
+	{
+		CurrentPickUp = nullptr;
 	}
 
 }
 
-
+/// Picking up an item to put in inventory
 void AEscapeGameCharacter::PickupItem()
 {
 	if (LastItemSeen)
 	{
 
 		FString ItemName = LastItemSeen->GetItemName();
+		AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 
 		if (!ItemName.Compare("Cone"))
 		{
 			NumCones++;
 			LastItemSeen->Destroy();
+			Con->UpdateInventory();
 		}
 		else if (!ItemName.Compare("Cube"))
 		{
 			NumCubes++;
 			LastItemSeen->Destroy();
+			Con->UpdateInventory();
 		}
 		else if(!ItemName.Compare("Cylinder"))
 		{
 			NumCylinders++;
 			LastItemSeen->Destroy();
+			Con->UpdateInventory();
 		}
 
 		
@@ -481,6 +497,7 @@ void AEscapeGameCharacter::PickupItem()
 	}
 }
 
+/// Calling the controller to show the inventory
 void AEscapeGameCharacter::HandleInventoryInput()
 {
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
@@ -489,15 +506,15 @@ void AEscapeGameCharacter::HandleInventoryInput()
 	}
 }
 
-
+/// Opening different types of door
 void AEscapeGameCharacter::OnAction()
 {
 
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+	
 
 	// door opens only if the player holds the correct shape, solved the puzzle or is already unlocked
-	if (CurrentDoor && Con)
+	if (CurrentDoor)
 	{
 
 		FString TypeNeeded = CurrentDoor->Type;
@@ -506,72 +523,41 @@ void AEscapeGameCharacter::OnAction()
 		{
 			CurrentDoor->MoveDoor(ForwardVector);
 		}
-		else if (!TypeNeeded.Compare("Cone") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Cone") && CurrentDoor->isClosed && NumCones > 0)
 		{
-			if (NumCones > 0)
-			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
 				NumCones--;
-			}
-			else
-			{
-				Con->DisplayMessage();
-			}
 		}
-		else if (!TypeNeeded.Compare("Cube") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Cube") && CurrentDoor->isClosed && NumCubes > 0)
 		{
-			if (NumCubes > 0)
-			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
 				NumCubes--;
-			}
-			else
-			{
-				Con->DisplayMessage();
-			}
 		}
-		else if (!TypeNeeded.Compare("Cylinder") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Cylinder") && CurrentDoor->isClosed && NumCylinders > 0)
 		{
-			if (NumCylinders > 0)
-			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
 				NumCylinders--;
-			}
-			else
-			{
-				Con->DisplayMessage();
-			}
 		}
-		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed && Trigger1Pressed && Trigger2Pressed && Trigger3Pressed)
 		{
-			
-			if (Trigger1Pressed == true && Trigger2Pressed == true && Trigger3Pressed == true)
-			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
-			}
-			else
-			{
-				Con->DisplayMessage();
-			}
-
 		}
-		else if (!TypeNeeded.Compare("Puzzle2") && CurrentDoor->isClosed)
+		else if (!TypeNeeded.Compare("Puzzle2") && CurrentDoor->isClosed && Trigger4Pressed)
 		{
-
-			if (Trigger4Pressed == true)
-			{
 				CurrentDoor->MoveDoor(ForwardVector);
 				CurrentDoor->isUnlocked = true;
-			}
-			else
+		}
+		else
+		{
+			AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+			if (Con)
 			{
 				Con->DisplayMessage();
 			}
-
 		}
 		
 	}

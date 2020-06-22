@@ -66,5 +66,7 @@ public:
 	UFUNCTION()
 	void RemoveMessage();
 
+	void UpdateInventory();
+
 	
 };

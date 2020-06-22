@@ -1,8 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green,text)
-#define printFString(text, fstring) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT(text), fstring))
-
 #include "Pickup2.h"
 #include "MyTriggerVolume.h"
 #include "Kismet/GameplayStatics.h"
@@ -26,8 +23,6 @@ void AMyTriggerVolume::BeginPlay()
 {
     Super::BeginPlay();
 
-    DrawDebugBox(GetWorld(), GetActorLocation(), GetActorScale() * 100, FColor::Cyan, true, -1, 0, 5);
-
     CurrentCharacter = GetWorld()->GetFirstPlayerController()->GetCharacter();
 
     if (CurrentCharacter)
@@ -42,6 +37,7 @@ void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActo
     if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
         
         isPressed = true;
+        UE_LOG(LogTemp, Warning, TEXT("Trigger is activated"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {
@@ -68,6 +64,7 @@ void AMyTriggerVolume::OnOverlapEnd(class AActor* OverlappedActor, class AActor*
     if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
         
         isPressed = false;
+        UE_LOG(LogTemp, Warning, TEXT("Trigger is no longer activated"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {

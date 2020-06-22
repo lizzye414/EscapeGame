@@ -25,14 +25,7 @@ void AMyPlayerController::BeginPlay()
 
 void AMyPlayerController::Tick(float DeltaSeconds)
 {
-	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
-
-	// Update the inventory even if it is left open
-	InventoryWidgetRef->NumCones = Char->GetNumCones();
-
-	InventoryWidgetRef->NumCubes = Char->GetNumCubes();
-
-	InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
+	
 }
 
 /// Pause the game and show the restart menu
@@ -72,7 +65,6 @@ void AMyPlayerController::OnPossess(APawn* InPawn)
 void AMyPlayerController::HandleInventoryInput()
 {
 
-	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
 	if (InventoryWidgetRef)
 	{
 		if (bIsInventoryOpen)
@@ -98,15 +90,35 @@ void AMyPlayerController::HandleInventoryInput()
 void AMyPlayerController::DisplayMessage()
 {
 
-	UserMessageWidget->AddToViewport();
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMyPlayerController::RemoveMessage, 3.0f, false);
+	if (UserMessageWidget)
+	{
+		UserMessageWidget->AddToViewport();
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMyPlayerController::RemoveMessage, 2.0f, false);
+	}
 
 }
 
 void AMyPlayerController::RemoveMessage()
 {
 
-	UserMessageWidget->RemoveFromViewport();
+	if (UserMessageWidget)
+	{
+		UserMessageWidget->RemoveFromViewport();
+	}
+}
+
+/// Update the inventory even if it is left open
+void AMyPlayerController::UpdateInventory()
+{
+
+	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
+
+	
+	InventoryWidgetRef->NumCones = Char->GetNumCones();
+
+	InventoryWidgetRef->NumCubes = Char->GetNumCubes();
+
+	InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
 
 }
 

@@ -157,6 +157,8 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Trigger Capsule")
 		class UCapsuleComponent* TriggerCapsule;
 
+	FTimerHandle TimerHandle;
+
 public:
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -193,7 +195,6 @@ public:
 	bool Trigger2Pressed = false;
 	bool Trigger3Pressed = false;
 	bool Trigger4Pressed = false;
-
 
 
 
