@@ -201,7 +201,7 @@ public:
 protected:
 	/*The range of the raycast*/
 	UPROPERTY(EditAnywhere)
-		float RaycastRange = 250.f;
+		float RaycastRange = 300.f;
 
 	/*Handles the Pickup Input*/
 	UFUNCTION()
@@ -235,6 +235,9 @@ protected:
 	// Display restart option
 	UFUNCTION()
 		void ShowRestart();
+
+	UFUNCTION()
+		void ShowHideControls();
 
 
 };

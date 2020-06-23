@@ -176,6 +176,9 @@ void AEscapeGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	InputComponent->BindAction("Grab", IE_Pressed, this, &AEscapeGameCharacter::Grab);
 	InputComponent->BindAction("Grab", IE_Released, this, &AEscapeGameCharacter::Release);
 
+	//Action mapping of showing and hiding the controls
+	InputComponent->BindAction("Controls", IE_Pressed, this, &AEscapeGameCharacter::ShowHideControls);
+
 }
 
 void AEscapeGameCharacter::OnFire()
@@ -511,7 +514,7 @@ void AEscapeGameCharacter::OnAction()
 {
 
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	
+	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 
 	// door opens only if the player holds the correct shape, solved the puzzle or is already unlocked
 	if (CurrentDoor)
@@ -543,8 +546,11 @@ void AEscapeGameCharacter::OnAction()
 		}
 		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed && Trigger1Pressed && Trigger2Pressed && Trigger3Pressed)
 		{
-				CurrentDoor->MoveDoor(ForwardVector);
-				CurrentDoor->isUnlocked = true;
+				//CurrentDoor->MoveDoor(ForwardVector);
+				//AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+				if (Con) {
+					Con->ShowWin();
+				}
 		}
 		else if (!TypeNeeded.Compare("Puzzle2") && CurrentDoor->isClosed && Trigger4Pressed)
 		{
@@ -553,12 +559,14 @@ void AEscapeGameCharacter::OnAction()
 		}
 		else
 		{
-			AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+			
 			if (Con)
 			{
 				Con->DisplayMessage();
 			}
 		}
+
+		Con->UpdateInventory();
 		
 	}
 
@@ -608,6 +616,16 @@ void AEscapeGameCharacter::ShowRestart()
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 	if (Con) {
 		Con->ShowRestart();
+	}
+
+}
+
+void AEscapeGameCharacter::ShowHideControls()
+{
+
+	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+	if (Con) {
+		Con->ShowHideControls();
 	}
 
 }

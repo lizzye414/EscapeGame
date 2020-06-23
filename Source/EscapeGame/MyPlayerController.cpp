@@ -18,7 +18,11 @@ void AMyPlayerController::BeginPlay()
 		UserMessageWidget = CreateWidget<UUserWidget>(GetWorld(), UserMessageWidgetClass);
 	}
 
-	
+	if (ControlsWidgetClass != nullptr)
+	{
+		ControlsWidget = CreateWidget<UUserWidget>(GetWorld(), ControlsWidgetClass);
+	}
+
 
 }
 
@@ -26,24 +30,6 @@ void AMyPlayerController::BeginPlay()
 void AMyPlayerController::Tick(float DeltaSeconds)
 {
 	
-}
-
-/// Pause the game and show the restart menu
-void AMyPlayerController::ShowRestart()
-{
-	
-	AEscapeGameCharacter* Char = Cast<AEscapeGameCharacter>(GetPawn());
-
-	if (RestartWidgetClass != nullptr)
-	{
-		RestartWidget = CreateWidget<UUserWidget>(GetWorld(), RestartWidgetClass);
-		RestartWidget->AddToViewport();
-		UGameplayStatics::SetGamePaused(GetWorld(), true);
-		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true; 
-		GetWorld()->GetFirstPlayerController()->bEnableClickEvents = true;
-	}
-
-
 }
 
 void AMyPlayerController::OnPossess(APawn* InPawn)
@@ -77,6 +63,8 @@ void AMyPlayerController::HandleInventoryInput()
 		}
 		else
 		{
+			UpdateInventory();
+			
 			// mark inventory as open
 			bIsInventoryOpen = true;
 
@@ -121,6 +109,58 @@ void AMyPlayerController::UpdateInventory()
 	InventoryWidgetRef->NumCylinders = Char->GetNumCylinders();
 
 }
+
+/// Pause the game and show the restart menu
+void AMyPlayerController::ShowRestart()
+{
+
+	if (RestartWidgetClass != nullptr)
+	{
+		RestartWidget = CreateWidget<UUserWidget>(GetWorld(), RestartWidgetClass);
+		RestartWidget->AddToViewport();
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+		GetWorld()->GetFirstPlayerController()->bEnableClickEvents = true;
+	}
+
+
+}
+
+
+/// Pause game and show win UI
+void AMyPlayerController::ShowWin()
+{
+
+	if (WinWidgetClass != nullptr)
+	{
+		WinWidget = CreateWidget<UUserWidget>(GetWorld(), WinWidgetClass);
+		WinWidget->AddToViewport();
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+		GetWorld()->GetFirstPlayerController()->bEnableClickEvents = true;
+	}
+
+}
+
+void AMyPlayerController::ShowHideControls()
+{
+
+	if (ControlsWidgetClass != nullptr)
+	{
+		if (!bIsControlsOpen && ControlsWidget)
+		{
+			ControlsWidget->AddToViewport();
+			bIsControlsOpen = true;
+		}
+		else
+		{
+			ControlsWidget->RemoveFromViewport();
+			bIsControlsOpen = false;
+		}
+	}
+
+}
+
 
 
 

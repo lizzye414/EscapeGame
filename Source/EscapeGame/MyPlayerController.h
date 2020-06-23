@@ -48,6 +48,18 @@ protected:
 
 	UUserWidget* UserMessageWidget;
 
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> WinWidgetClass;
+
+	UUserWidget* WinWidget;
+
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> ControlsWidgetClass;
+
+	UUserWidget* ControlsWidget;
+
+
+
 public:
 	virtual void OnPossess(APawn* InPawn) override;
 
@@ -67,6 +79,11 @@ public:
 	void RemoveMessage();
 
 	void UpdateInventory();
+
+	void ShowWin();
+
+	void ShowHideControls();
+	bool bIsControlsOpen = false;
 
 	
 };
