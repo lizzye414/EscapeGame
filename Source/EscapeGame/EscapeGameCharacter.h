@@ -149,14 +149,17 @@ public:
 
 private:
 	/*Raycasts in front of the character to find usable items*/
+	UFUNCTION()
 	FHitResult Raycast();
 
 	/*Reference to the last seen pickup item. Nullptr if none*/
+	UPROPERTY()
 	APickup2* LastItemSeen;
 
 	UPROPERTY(VisibleAnywhere, Category = "Trigger Capsule")
 		class UCapsuleComponent* TriggerCapsule;
 
+	UPROPERTY()
 	FTimerHandle TimerHandle;
 
 public:
@@ -177,10 +180,13 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	UPROPERTY()
 	class ADoor* CurrentDoor;
 
+	UPROPERTY()
 	class ADamage* CurrentDamage;
 
+	UPROPERTY()
 	class APickUp* CurrentPickUp;
 
 	UPROPERTY(BlueprintReadOnly)
@@ -188,12 +194,20 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 		float CurrentHealth;
-
+	
+	UPROPERTY()
 	bool isAlive;
 
+	UPROPERTY()
 	bool Trigger1Pressed = false;
+
+	UPROPERTY()
 	bool Trigger2Pressed = false;
+
+	UPROPERTY()
 	bool Trigger3Pressed = false;
+
+	UPROPERTY()
 	bool Trigger4Pressed = false;
 
 
@@ -223,13 +237,19 @@ protected:
 	UPROPERTY(EditAnywhere)
 		int32 NumCylinders = 0;
 
+	UFUNCTION()
 	void OnAction();
 
+	UFUNCTION()
 	void Grab();
+
+	UFUNCTION()
 	void Release();
 
+	UFUNCTION()
 	void FindPhysicsHandleComponent();
 
+	UPROPERTY()
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 
 	// Display restart option

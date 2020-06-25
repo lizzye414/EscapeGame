@@ -27,6 +27,7 @@ public:
 public:
 
 	/*Enables/Disables the glow effect on the pickup*/
+	UFUNCTION()
 	void SetGlowEffect(bool Status);
 
 	UFUNCTION()

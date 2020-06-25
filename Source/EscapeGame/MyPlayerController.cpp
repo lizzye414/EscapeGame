@@ -23,7 +23,6 @@ void AMyPlayerController::BeginPlay()
 		ControlsWidget = CreateWidget<UUserWidget>(GetWorld(), ControlsWidgetClass);
 	}
 
-
 }
 
 
@@ -44,7 +43,7 @@ void AMyPlayerController::OnPossess(APawn* InPawn)
 	// initial value
 	bIsInventoryOpen = false;
 
-	Character = Cast<AEscapeGameCharacter>(GetPawn());
+	//AEscapeGameCharacter* Character = Cast<AEscapeGameCharacter>(GetPawn());
 }
 
 /// Displays inventory on screen

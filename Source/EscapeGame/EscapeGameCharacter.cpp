@@ -433,14 +433,17 @@ void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 
 		CurrentPickUp = Cast<APickUp>(OtherActor);
 
-		if (CurrentHealth < 100.0f)
+		if (CurrentPickUp)
 		{
-			CurrentHealth += 20.0f;
-			CurrentPickUp->Destroy();
-
-			if (CurrentHealth > 100.0f)
+			if (CurrentHealth < 100.0f)
 			{
-				CurrentHealth = 100.0f;
+				CurrentHealth += 20.0f;
+				CurrentPickUp->Destroy();
+
+				if (CurrentHealth > 100.0f)
+				{
+					CurrentHealth = 100.0f;
+				}
 			}
 		}
 	}

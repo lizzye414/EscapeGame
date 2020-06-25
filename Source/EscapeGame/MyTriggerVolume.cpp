@@ -1,12 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Pickup2.h"
 #include "MyTriggerVolume.h"
+#include "Pickup2.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyPlayerController.h"
 #include "GameFramework/PlayerController.h"
-// include draw debug helpers header file
-#include "DrawDebugHelpers.h"
 
 AMyTriggerVolume::AMyTriggerVolume()
 {

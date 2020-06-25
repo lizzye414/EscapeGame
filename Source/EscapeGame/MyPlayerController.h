@@ -21,11 +21,14 @@ private:
 	virtual void BeginPlay() override;
 
 	// InventoryWidget reference
+	UPROPERTY()
 	UInventoryWidget* InventoryWidgetRef;
 
 	// true is inventory is open
+	UPROPERTY()
 	bool bIsInventoryOpen;
 
+	UPROPERTY()
 	FTimerHandle TimerHandle;
 
 protected:
@@ -36,40 +39,44 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> HealthWidgetClass;
 
+	UPROPERTY()
 	UUserWidget* HealthWidget;
 
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> RestartWidgetClass;
 
+	UPROPERTY()
 	UUserWidget* RestartWidget;
 
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> UserMessageWidgetClass;
 
+	UPROPERTY()
 	UUserWidget* UserMessageWidget;
 
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> WinWidgetClass;
 
+	UPROPERTY()
 	UUserWidget* WinWidget;
 
 	UPROPERTY(EditAnywhere, Category = "HUD Elements")
 		TSubclassOf<UUserWidget> ControlsWidgetClass;
 
+	UPROPERTY()
 	UUserWidget* ControlsWidget;
 
-
-
 public:
+	UFUNCTION()
 	virtual void OnPossess(APawn* InPawn) override;
 
 	//Opens or closes the inventory
+	UFUNCTION()
 	void HandleInventoryInput();
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	AEscapeGameCharacter* Character;
-
+	UFUNCTION()
 	void ShowRestart();
 
 	UFUNCTION()
@@ -78,11 +85,16 @@ public:
 	UFUNCTION()
 	void RemoveMessage();
 
+	UFUNCTION()
 	void UpdateInventory();
 
+	UFUNCTION()
 	void ShowWin();
 
+	UFUNCTION()
 	void ShowHideControls();
+
+	UPROPERTY()
 	bool bIsControlsOpen = false;
 
 	

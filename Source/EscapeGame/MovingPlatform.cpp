@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "MovingPlatform.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
 #include "Components/SceneComponent.h"
-#include <string>
-#include "MovingPlatform.h"
+
+
 
 // Sets default values
 AMovingPlatform::AMovingPlatform()
