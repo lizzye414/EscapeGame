@@ -22,12 +22,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = UI)
 		void Show();
 
-	// removes widget from viewport
-	UFUNCTION(BlueprintImplementableEvent, Category = UI)
-		void Hide();
-
-	// stores reference to bind information on inventory slots
-
+	/// stores information on inventory slots
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		int32 NumCones;
 

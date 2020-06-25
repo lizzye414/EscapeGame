@@ -2,7 +2,7 @@
 
 
 #include "DestructibleObject.h"
-#include "Engine/Engine.h"
+
 
 // Sets default values
 ADestructibleObject::ADestructibleObject()
@@ -16,8 +16,8 @@ ADestructibleObject::ADestructibleObject()
 	if (RootComponent)
 	{
 		this->BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-		//this->BoxCollision->SetGenerateOverlapEvents(true);
-		//this->BoxCollision->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
+		this->BoxCollision->SetGenerateOverlapEvents(true);
+		this->BoxCollision->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
 		//this->BoxCollision->AttachToComponent(this->RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 		this->BoxCollision->SetupAttachment(RootComponent);
 	}

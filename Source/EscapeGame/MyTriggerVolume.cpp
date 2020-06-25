@@ -35,7 +35,6 @@ void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActo
     if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
         
         isPressed = true;
-        UE_LOG(LogTemp, Warning, TEXT("Trigger is activated"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {
@@ -62,7 +61,6 @@ void AMyTriggerVolume::OnOverlapEnd(class AActor* OverlappedActor, class AActor*
     if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
         
         isPressed = false;
-        UE_LOG(LogTemp, Warning, TEXT("Trigger is no longer activated"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {

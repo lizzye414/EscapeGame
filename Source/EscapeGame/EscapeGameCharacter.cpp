@@ -345,7 +345,6 @@ bool AEscapeGameCharacter::EnableTouchscreenMovement(class UInputComponent* Play
 /// Raycast to make interactable items glow and be picked up
 FHitResult AEscapeGameCharacter::Raycast()
 {
-
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
@@ -378,25 +377,32 @@ FHitResult AEscapeGameCharacter::Raycast()
 }
 
 
-void AEscapeGameCharacter::Tick(float DeltaSeconds)
+FVector AEscapeGameCharacter::GetLineTraceEnd()
 {
-	Super::Tick(DeltaSeconds);
-	//Raycast every frame
-	Raycast();
-
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
 
 	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * RaycastRange;
 
+	return LineTraceEnd;
+}
+
+void AEscapeGameCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	//Get the LineTraceEnd every frame
+	Raycast();
+
+	/// If an object has been grabbed hold it away from the camera
 	if (PhysicsHandle->GrabbedComponent)
 	{
 
-		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+		PhysicsHandle->SetTargetLocation(GetLineTraceEnd());
 
 	}
 
+	/// If overlapping Damage update the CurrentHealth each tick
 	if (CurrentHealth > 0.0f && CurrentDamage)
 	{
 		CurrentHealth -= CurrentDamage->DamageAmount;
@@ -409,8 +415,9 @@ void AEscapeGameCharacter::Tick(float DeltaSeconds)
 		}
 	}
 
-
 }
+
+
 
 void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -498,8 +505,6 @@ void AEscapeGameCharacter::PickupItem()
 			Con->UpdateInventory();
 		}
 
-		
-
 	}
 }
 
@@ -549,8 +554,6 @@ void AEscapeGameCharacter::OnAction()
 		}
 		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed && Trigger1Pressed && Trigger2Pressed && Trigger3Pressed)
 		{
-				//CurrentDoor->MoveDoor(ForwardVector);
-				//AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 				if (Con) {
 					Con->ShowWin();
 				}
@@ -575,6 +578,7 @@ void AEscapeGameCharacter::OnAction()
 
 }
 
+/// Picking up and carrying around an object
 void AEscapeGameCharacter::Grab()
 {
 	
@@ -590,6 +594,8 @@ void AEscapeGameCharacter::Grab()
 
 }
 
+
+/// Putting down an object
 void AEscapeGameCharacter::Release()
 {
 
@@ -597,22 +603,15 @@ void AEscapeGameCharacter::Release()
 
 }
 
+
 void AEscapeGameCharacter::FindPhysicsHandleComponent()
 {
 
 	PhysicsHandle = this->FindComponentByClass<UPhysicsHandleComponent>();
 
-	if (PhysicsHandle)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%s has a physics handle"), *GetOwner()->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle"), *GetOwner()->GetName());
-	}
-
 }
 
+/// Showing the restart menu
 void AEscapeGameCharacter::ShowRestart()
 {
 
@@ -623,6 +622,7 @@ void AEscapeGameCharacter::ShowRestart()
 
 }
 
+/// Showing and hiding the Controls information
 void AEscapeGameCharacter::ShowHideControls()
 {
 

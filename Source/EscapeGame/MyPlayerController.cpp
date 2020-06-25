@@ -43,7 +43,6 @@ void AMyPlayerController::OnPossess(APawn* InPawn)
 	// initial value
 	bIsInventoryOpen = false;
 
-	//AEscapeGameCharacter* Character = Cast<AEscapeGameCharacter>(GetPawn());
 }
 
 /// Displays inventory on screen
@@ -141,6 +140,7 @@ void AMyPlayerController::ShowWin()
 
 }
 
+/// Show and hide the control information
 void AMyPlayerController::ShowHideControls()
 {
 

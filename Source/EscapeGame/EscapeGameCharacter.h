@@ -162,6 +162,9 @@ private:
 	UPROPERTY()
 	FTimerHandle TimerHandle;
 
+	UFUNCTION()
+		FVector GetLineTraceEnd();
+
 public:
 
 	virtual void Tick(float DeltaSeconds) override;
