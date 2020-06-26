@@ -13,7 +13,7 @@ AMyTriggerVolume::AMyTriggerVolume()
     OnActorEndOverlap.AddDynamic(this, &AMyTriggerVolume::OnOverlapEnd);
 
     isPressed = false;
-
+    CurrentPickup = nullptr;
 }
 
 // Called when the game starts or when spawned
@@ -30,11 +30,15 @@ void AMyTriggerVolume::BeginPlay()
 
 }
 
+
+/// Triggers volume if not yet pressed and sets Trigger press on character to open puzzle doors
 void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor)
 {
-    if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
+    if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass()) && !isPressed) {
         
         isPressed = true;
+        CurrentPickup = Cast<APickup2>(OtherActor);
+        UE_LOG(LogTemp, Warning, TEXT("Pad pressed"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {
@@ -56,11 +60,14 @@ void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActo
     }
 }
 
+/// Removes trigger from volume only if the current pickup leaves volume, preventing false negatives from other pickups leaving area
 void AMyTriggerVolume::OnOverlapEnd(class AActor* OverlappedActor, class AActor* OtherActor)
 {
-    if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass())) {
+    if (OtherActor && (OtherActor != this) && OtherActor->GetClass()->IsChildOf(APickup2::StaticClass()) && (OtherActor == CurrentPickup)) {
         
         isPressed = false;
+        CurrentPickup = nullptr;
+        UE_LOG(LogTemp, Warning, TEXT("Pad no longer pressed"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {

@@ -36,16 +36,22 @@ public:
 	FVector CurrentLocation;
 	float AddHeight;
 
+	UPROPERTY()
 	bool movingUp;
+
+	UPROPERTY()
 	bool movingDown;
 	
 	UPROPERTY(EditAnywhere, Category = "Settings")
 	float Speed;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
-		float MaxHeight;
+		float StartHeight;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
-		bool startDown;
+		float MinHeight;
+
+	UPROPERTY(EditAnywhere, Category = "Settings")
+		float MaxHeight;
 
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/TriggerVolume.h"
 #include "EscapeGameCharacter.h"
+#include "Pickup2.h"
 #include "MyTriggerVolume.generated.h"
 
 /**
@@ -34,7 +35,12 @@ public:
 
 	bool isPressed;
 
+
 	ACharacter* CurrentCharacter;
+
 	AEscapeGameCharacter* EGCharacter;
+
+	UPROPERTY()
+		APickup2* CurrentPickup;
 
 };

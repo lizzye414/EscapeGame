@@ -22,17 +22,18 @@ AMovingPlatform::AMovingPlatform()
 	Platform = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Platform"));
 	Platform->SetupAttachment(RootComponent);
 
-	Platform->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-
 	AddHeight = 0.0f;
 	movingUp = true;
-
+	movingDown = false;
+	
 }
 
 // Called when the game starts or when spawned
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Platform->SetRelativeLocation(FVector(0.0f, 0.0f, StartHeight));
 	
 }
 
@@ -53,6 +54,7 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 }
 
+/// Moves the platform upwards based on speed and maxheight settings
 void AMovingPlatform::MoveUp(float dt)
 {
 	CurrentLocation = Platform->GetRelativeLocation();
@@ -74,6 +76,7 @@ void AMovingPlatform::MoveUp(float dt)
 
 }
 
+/// Moves the platform downwards based on speed and minheight settings
 void AMovingPlatform::MoveDown(float dt)
 {
 
@@ -81,37 +84,17 @@ void AMovingPlatform::MoveDown(float dt)
 
 	AddHeight = -dt * Speed;
 
-	// Platform stops at different height depending on whether it started at floor or not so that it doesn't 
-	// fall through the floor
-	if (!startDown)
+	if (FMath::IsNearlyEqual(CurrentLocation.Z, MinHeight, 1.5f))
 	{
-		if (FMath::IsNearlyEqual(CurrentLocation.Z, -MaxHeight + 100.0f, 1.5f))
-		{
-			movingUp = true;
-			movingDown = false;
-		}
-		else if (movingDown)
-		{
-
-			FVector NewLocation = FVector(0.0f, 0.0f, AddHeight);
-			Platform->AddRelativeLocation(NewLocation, false, 0, ETeleportType::None);
-
-		}
+		movingUp = true;
+		movingDown = false;
 	}
-	else
+	else if (movingDown)
 	{
-		if (FMath::IsNearlyEqual(CurrentLocation.Z, 20.0f, 1.5f))
-		{
-			movingUp = true;
-			movingDown = false;
-		}
-		else if (movingDown)
-		{
 
-			FVector NewLocation = FVector(0.0f, 0.0f, AddHeight);
-			Platform->AddRelativeLocation(NewLocation, false, 0, ETeleportType::None);
+		FVector NewLocation = FVector(0.0f, 0.0f, AddHeight);
+		Platform->AddRelativeLocation(NewLocation, false, 0, ETeleportType::None);
 
-		}
 	}
 
 }

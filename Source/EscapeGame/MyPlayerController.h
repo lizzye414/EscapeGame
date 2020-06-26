@@ -66,6 +66,12 @@ protected:
 	UPROPERTY()
 	UUserWidget* ControlsWidget;
 
+	UPROPERTY(EditAnywhere, Category = "HUD Elements")
+		TSubclassOf<UUserWidget> PauseWidgetClass;
+
+	UPROPERTY()
+		UUserWidget* PauseWidget;
+
 public:
 	UFUNCTION()
 	virtual void OnPossess(APawn* InPawn) override;
@@ -97,5 +103,7 @@ public:
 	UPROPERTY()
 	bool bIsControlsOpen = false;
 
-	
+	UFUNCTION()
+	void PauseGame();
+
 };

@@ -201,16 +201,16 @@ public:
 	UPROPERTY()
 	bool isAlive;
 
-	UPROPERTY()
+
 	bool Trigger1Pressed = false;
 
-	UPROPERTY()
+
 	bool Trigger2Pressed = false;
 
-	UPROPERTY()
+
 	bool Trigger3Pressed = false;
 
-	UPROPERTY()
+
 	bool Trigger4Pressed = false;
 
 
@@ -261,6 +261,9 @@ protected:
 
 	UFUNCTION()
 		void ShowHideControls();
+
+	UFUNCTION()
+		void PauseGame();
 
 
 };

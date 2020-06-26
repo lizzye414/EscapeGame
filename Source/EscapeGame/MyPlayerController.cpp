@@ -23,6 +23,11 @@ void AMyPlayerController::BeginPlay()
 		ControlsWidget = CreateWidget<UUserWidget>(GetWorld(), ControlsWidgetClass);
 	}
 
+	if (PauseWidgetClass != nullptr)
+	{
+		PauseWidget = CreateWidget<UUserWidget>(GetWorld(), PauseWidgetClass);
+	}
+
 }
 
 
@@ -157,6 +162,20 @@ void AMyPlayerController::ShowHideControls()
 			bIsControlsOpen = false;
 		}
 	}
+
+}
+
+void AMyPlayerController::PauseGame()
+{
+
+	if (PauseWidget)
+	{
+		PauseWidget->AddToViewport();
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+		GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+		GetWorld()->GetFirstPlayerController()->bEnableClickEvents = true;
+	}
+
 
 }
 

@@ -179,6 +179,9 @@ void AEscapeGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	//Action mapping of showing and hiding the controls
 	InputComponent->BindAction("Controls", IE_Pressed, this, &AEscapeGameCharacter::ShowHideControls);
 
+	//Action mapping of pause menu
+	InputComponent->BindAction("Pause", IE_Pressed, this, &AEscapeGameCharacter::PauseGame);
+
 }
 
 void AEscapeGameCharacter::OnFire()
@@ -629,6 +632,16 @@ void AEscapeGameCharacter::ShowHideControls()
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 	if (Con) {
 		Con->ShowHideControls();
+	}
+
+}
+
+void AEscapeGameCharacter::PauseGame()
+{
+
+	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
+	if (Con) {
+		Con->PauseGame();
 	}
 
 }
