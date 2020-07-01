@@ -11,8 +11,8 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
-#include "MyPlayerController.h"
 #include "MyTriggerVolume.h"
+#include "MyPlayerController.h"
 #include "Components/TextBlock.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 
@@ -98,7 +98,6 @@ AEscapeGameCharacter::AEscapeGameCharacter()
 	TriggerCapsule->OnComponentEndOverlap.AddDynamic(this, &AEscapeGameCharacter::OnOverlapEnd);
 
 	CurrentDoor = NULL;
-
 	MaxHealth = 100.0f;
 	CurrentHealth = 100.0f;
 	isAlive = true;
@@ -348,16 +347,10 @@ bool AEscapeGameCharacter::EnableTouchscreenMovement(class UInputComponent* Play
 /// Raycast to make interactable items glow and be picked up
 FHitResult AEscapeGameCharacter::Raycast()
 {
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
-
-	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * RaycastRange;
-
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 	FHitResult RaycastHit;
 
-	GetWorld()->LineTraceSingleByObjectType(RaycastHit, PlayerViewPointLocation, LineTraceEnd, ECollisionChannel::ECC_PhysicsBody, TraceParameters);
+	GetWorld()->LineTraceSingleByObjectType(RaycastHit, GetPlayerViewPointLocation(), GetLineTraceEnd(), ECollisionChannel::ECC_PhysicsBody, TraceParameters);
 
 	APickup2* Pickup = Cast<APickup2>(RaycastHit.GetActor());
 
@@ -379,7 +372,6 @@ FHitResult AEscapeGameCharacter::Raycast()
 
 }
 
-
 FVector AEscapeGameCharacter::GetLineTraceEnd()
 {
 	FVector PlayerViewPointLocation;
@@ -391,10 +383,18 @@ FVector AEscapeGameCharacter::GetLineTraceEnd()
 	return LineTraceEnd;
 }
 
+FVector AEscapeGameCharacter::GetPlayerViewPointLocation()
+{
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+	return PlayerViewPointLocation;
+}
+
 void AEscapeGameCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	//Get the LineTraceEnd every frame
+	//Raycast every frame
 	Raycast();
 
 	/// If an object has been grabbed hold it away from the camera
@@ -419,8 +419,6 @@ void AEscapeGameCharacter::Tick(float DeltaSeconds)
 	}
 
 }
-
-
 
 void AEscapeGameCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -528,7 +526,7 @@ void AEscapeGameCharacter::OnAction()
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 
 	// door opens only if the player holds the correct shape, solved the puzzle or is already unlocked
-	if (CurrentDoor)
+	if (CurrentDoor && Con)
 	{
 
 		FString TypeNeeded = CurrentDoor->Type;
@@ -557,9 +555,7 @@ void AEscapeGameCharacter::OnAction()
 		}
 		else if (!TypeNeeded.Compare("Puzzle") && CurrentDoor->isClosed && Trigger1Pressed && Trigger2Pressed && Trigger3Pressed)
 		{
-				if (Con) {
 					Con->ShowWin();
-				}
 		}
 		else if (!TypeNeeded.Compare("Puzzle2") && CurrentDoor->isClosed && Trigger4Pressed)
 		{
@@ -568,11 +564,7 @@ void AEscapeGameCharacter::OnAction()
 		}
 		else
 		{
-			
-			if (Con)
-			{
 				Con->DisplayMessage();
-			}
 		}
 
 		Con->UpdateInventory();
@@ -617,33 +609,27 @@ void AEscapeGameCharacter::FindPhysicsHandleComponent()
 /// Showing the restart menu
 void AEscapeGameCharacter::ShowRestart()
 {
-
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 	if (Con) {
 		Con->ShowRestart();
 	}
-
 }
 
 /// Showing and hiding the Controls information
 void AEscapeGameCharacter::ShowHideControls()
 {
-
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 	if (Con) {
 		Con->ShowHideControls();
 	}
-
 }
 
 void AEscapeGameCharacter::PauseGame()
 {
-
 	AMyPlayerController* Con = Cast<AMyPlayerController>(GetController());
 	if (Con) {
 		Con->PauseGame();
 	}
-
 }
 
 

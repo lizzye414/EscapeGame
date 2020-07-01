@@ -16,24 +16,20 @@ public:
 	// Sets default values for this actor's properties
 	APickup2();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-public:
-
 	/*Enables/Disables the glow effect on the pickup*/
 	UFUNCTION()
-	void SetGlowEffect(bool Status);
+		void SetGlowEffect(bool Status);
 
 	UFUNCTION()
 		FString GetItemName() { return ItemName; }
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	/*The Static Mesh of the pickup*/
 	UPROPERTY(VisibleAnywhere)
 		UStaticMeshComponent* PickupSM;

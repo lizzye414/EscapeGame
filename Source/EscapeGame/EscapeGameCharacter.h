@@ -144,9 +144,6 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
-
-
-
 private:
 	/*Raycasts in front of the character to find usable items*/
 	UFUNCTION()
@@ -164,6 +161,21 @@ private:
 
 	UFUNCTION()
 		FVector GetLineTraceEnd();
+
+	UFUNCTION()
+		FVector GetPlayerViewPointLocation();
+
+	UPROPERTY()
+		class ADoor* CurrentDoor;
+
+	UPROPERTY()
+		class ADamage* CurrentDamage;
+
+	UPROPERTY()
+		class APickUp* CurrentPickUp;
+
+	UPROPERTY()
+		bool isAlive;
 
 public:
 
@@ -183,37 +195,16 @@ public:
 	UFUNCTION()
 		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	UPROPERTY()
-	class ADoor* CurrentDoor;
-
-	UPROPERTY()
-	class ADamage* CurrentDamage;
-
-	UPROPERTY()
-	class APickUp* CurrentPickUp;
+	bool Trigger1Pressed = false;
+	bool Trigger2Pressed = false;
+	bool Trigger3Pressed = false;
+	bool Trigger4Pressed = false;
 
 	UPROPERTY(BlueprintReadOnly)
 		float MaxHealth;
 
 	UPROPERTY(BlueprintReadOnly)
 		float CurrentHealth;
-	
-	UPROPERTY()
-	bool isAlive;
-
-
-	bool Trigger1Pressed = false;
-
-
-	bool Trigger2Pressed = false;
-
-
-	bool Trigger3Pressed = false;
-
-
-	bool Trigger4Pressed = false;
-
-
 
 protected:
 	/*The range of the raycast*/
@@ -264,6 +255,5 @@ protected:
 
 	UFUNCTION()
 		void PauseGame();
-
 
 };

@@ -24,20 +24,26 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	UFUNCTION()
 		void OpenDoor(float dt);
 
 	UFUNCTION()
 		void CloseDoor(float dt);
 
-	UFUNCTION()
-		void MoveDoor(FVector ForwardVector);
+	float DotP;
+	float PosNeg;
+	float AddRotation;
+	float CurrentRotation;
+	float MaxDegree;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 	UStaticMeshComponent* Door;
+
+	UFUNCTION()
+		void MoveDoor(FVector ForwardVector);
 
 	UPROPERTY(VisibleAnywhere, Category = "BoxComp")
 		UBoxComponent* BoxComp;
@@ -45,17 +51,12 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Type")
 		FString Type;
 
-
 	bool isUnlocked;
 	bool Opening;
 	bool Closing;
 	bool isClosed;
 
-	float DotP;
-	float PosNeg;
-	float AddRotation;
-	float CurrentRotation;
-	float MaxDegree;
+
 
 
 

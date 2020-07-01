@@ -4,6 +4,7 @@
 #include "MyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "EscapeGameCharacter.h"
+#include "GameFramework/PlayerController.h"
 
 void AMyPlayerController::BeginPlay()
 {
@@ -27,6 +28,10 @@ void AMyPlayerController::BeginPlay()
 	{
 		PauseWidget = CreateWidget<UUserWidget>(GetWorld(), PauseWidgetClass);
 	}
+
+	FInputModeGameOnly InputModeData;
+	InputModeData.SetConsumeCaptureMouseDown(false);
+	SetInputMode(InputModeData);
 
 }
 
@@ -78,6 +83,7 @@ void AMyPlayerController::HandleInventoryInput()
 
 }
 
+/// Displays locked door message
 void AMyPlayerController::DisplayMessage()
 {
 
@@ -89,6 +95,7 @@ void AMyPlayerController::DisplayMessage()
 
 }
 
+/// Removes locked door message
 void AMyPlayerController::RemoveMessage()
 {
 
@@ -165,6 +172,7 @@ void AMyPlayerController::ShowHideControls()
 
 }
 
+/// Displays pause game menu
 void AMyPlayerController::PauseGame()
 {
 

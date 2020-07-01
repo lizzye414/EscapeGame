@@ -24,7 +24,6 @@ AMovingPlatform::AMovingPlatform()
 
 	AddHeight = 0.0f;
 	movingUp = true;
-	movingDown = false;
 	
 }
 
@@ -33,7 +32,7 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Platform->SetRelativeLocation(FVector(0.0f, 0.0f, StartHeight));
+	Platform->SetRelativeLocation(FVector(0.0f, 0.0f, MinHeight));
 	
 }
 
@@ -47,54 +46,45 @@ void AMovingPlatform::Tick(float DeltaTime)
 		MoveUp(DeltaTime);
 	}
 
-	if (movingDown)
+	if (!movingUp)
 	{
 		MoveDown(DeltaTime);
 	}
 
 }
 
-/// Moves the platform upwards based on speed and maxheight settings
 void AMovingPlatform::MoveUp(float dt)
 {
 	CurrentLocation = Platform->GetRelativeLocation();
 
 	AddHeight = dt * Speed;
 
-	if (FMath::IsNearlyEqual(CurrentLocation.Z, MaxHeight, 1.5f))
+	if (CurrentLocation.Z >= MaxHeight)
 	{
 		movingUp = false;
-		movingDown = true;
 	}
 	else if (movingUp)
 	{
-		
 		FVector NewLocation = FVector(0.0f, 0.0f, AddHeight);
 		Platform->AddRelativeLocation(NewLocation, false, 0, ETeleportType::None);
-	
 	}
 
 }
 
-/// Moves the platform downwards based on speed and minheight settings
 void AMovingPlatform::MoveDown(float dt)
 {
-
 	CurrentLocation = Platform->GetRelativeLocation();
 
 	AddHeight = -dt * Speed;
 
-	if (FMath::IsNearlyEqual(CurrentLocation.Z, MinHeight, 1.5f))
+	if (CurrentLocation.Z <= MinHeight)
 	{
 		movingUp = true;
-		movingDown = false;
 	}
-	else if (movingDown)
+	else if (!movingUp)
 	{
-
 		FVector NewLocation = FVector(0.0f, 0.0f, AddHeight);
 		Platform->AddRelativeLocation(NewLocation, false, 0, ETeleportType::None);
-
 	}
 
 }

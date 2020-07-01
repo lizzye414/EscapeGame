@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyTriggerVolume.h"
-#include "Pickup2.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyPlayerController.h"
 #include "GameFramework/PlayerController.h"
@@ -38,7 +37,6 @@ void AMyTriggerVolume::OnOverlapBegin(class AActor* OverlappedActor, class AActo
         
         isPressed = true;
         CurrentPickup = Cast<APickup2>(OtherActor);
-        UE_LOG(LogTemp, Warning, TEXT("Pad pressed"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {
@@ -67,7 +65,6 @@ void AMyTriggerVolume::OnOverlapEnd(class AActor* OverlappedActor, class AActor*
         
         isPressed = false;
         CurrentPickup = nullptr;
-        UE_LOG(LogTemp, Warning, TEXT("Pad no longer pressed"));
 
         if (EGCharacter && !Name.Compare("Trigger1"))
         {

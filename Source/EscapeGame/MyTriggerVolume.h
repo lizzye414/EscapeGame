@@ -35,7 +35,6 @@ public:
 
 	bool isPressed;
 
-
 	ACharacter* CurrentCharacter;
 
 	AEscapeGameCharacter* EGCharacter;

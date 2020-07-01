@@ -54,6 +54,7 @@ Global
 		{135258A9-E18D-409E-A9E3-E059244223C3}.DebugGame|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{135258A9-E18D-409E-A9E3-E059244223C3}.Development Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{135258A9-E18D-409E-A9E3-E059244223C3}.Development Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{135258A9-E18D-409E-A9E3-E059244223C3}.Development Editor|Win64.Build.0 = BuiltWithUnrealBuildTool|Win32
 		{135258A9-E18D-409E-A9E3-E059244223C3}.Development|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{135258A9-E18D-409E-A9E3-E059244223C3}.Development|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{135258A9-E18D-409E-A9E3-E059244223C3}.Shipping|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
@@ -63,7 +64,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{135258A9-E18D-409E-A9E3-E059244223C3} = {BEA71232-F85F-43D3-9A57-8601BDD36E67}
 		{A59F83D4-4555-4F6F-A341-A1E589D79E3F} = {EDF686D2-393D-4FC8-86EE-1FA6FF74CA46}
+		{135258A9-E18D-409E-A9E3-E059244223C3} = {BEA71232-F85F-43D3-9A57-8601BDD36E67}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F88BED6-9A4A-44AA-A497-7BE74443DCAB}
 	EndGlobalSection
 EndGlobal

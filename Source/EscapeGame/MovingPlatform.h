@@ -20,12 +20,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Platform;
+		UStaticMeshComponent* Platform;
 
 	UFUNCTION()
 		void MoveUp(float dt);
@@ -37,21 +33,19 @@ public:
 	float AddHeight;
 
 	UPROPERTY()
-	bool movingUp;
-
-	UPROPERTY()
-	bool movingDown;
-	
-	UPROPERTY(EditAnywhere, Category = "Settings")
-	float Speed;
+		bool movingUp;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
-		float StartHeight;
+		float Speed;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 		float MinHeight;
 
 	UPROPERTY(EditAnywhere, Category = "Settings")
 		float MaxHeight;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 };
